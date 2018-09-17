@@ -1,10 +1,10 @@
 <!--index.wxml-->
 <view class="navbar">
-  <view bindtap="changeCat" data-cat="gn" class="navbar-item">国内</view>
-  <view bindtap="changeCat" data-cat="gj" class="navbar-item">国际</view>
-  <view bindtap="changeCat" data-cat="cj" class="navbar-item">财经</view>
-  <view bindtap="changeCat" data-cat="yl" class="navbar-item">娱乐</view>
-  <view bindtap="changeCat" data-cat="js" class="navbar-item">军事</view>
-  <view bindtap="changeCat" data-cat="ty" class="navbar-item">体育</view>
-  <view bindtap="changeCat" data-cat="other" class="navbar-item">其他</view>
+  <view bindtap="changeCat" data-cat="gn" class="navbar-item {{currentCat=='gn'?'active':''}}">国内</view>
+  <view bindtap="changeCat" data-cat="gj" class="navbar-item {{currentCat=='gj'?'active':''}}">国际</view>
+  <view bindtap="changeCat" data-cat="cj" class="navbar-item {{currentCat=='cj'?'active':''}}">财经</view>
+  <view bindtap="changeCat" data-cat="yl" class="navbar-item {{currentCat=='yl'?'active':''}}">娱乐</view>
+  <view bindtap="changeCat" data-cat="js" class="navbar-item {{currentCat=='js'?'active':''}}">军事</view>
+  <view bindtap="changeCat" data-cat="ty" class="navbar-item {{currentCat=='ty'?'active':''}}">体育</view>
+  <view bindtap="changeCat" data-cat="other" class="navbar-item {{currentCat=='other'?'active':''}}">其他</view>
 </view>
