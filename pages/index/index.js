@@ -66,4 +66,11 @@ Page({
     let cat = event.target.dataset.cat
     this.getNews(cat);
   },
+  // 跳转到详情页面
+  detail(event) {
+    let id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/detail/detail?id=' + id,
+    })
+  }
 })
