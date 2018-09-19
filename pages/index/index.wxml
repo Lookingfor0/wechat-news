@@ -2,3 +2,15 @@
 <view class="navbar">
   <view wx:for="{{categories}}" bindtap="changeCat" data-cat="{{item.cat}}" class="navbar-item {{currentCat==item.cat?'active':''}}">{{item.name}}</view>
 </view>
+<view class="news-list">
+  <view wx:for="{{newsList}}" class="news-item" data-id="{{item.id}}">
+    <view class='news-info'>
+      <view class='news-title'>{{item.title}}</view>
+      <view class='news-source-date'>
+        <view class='news-source' wx:if="{{item.source}}">{{item.source}}</view>
+        <view class='news-date'>{{item.date}}</view>
+      </view>
+    </view>
+    <image class='news-img' src='{{item.firstImage}}'></image>
+  </view>
+</view>

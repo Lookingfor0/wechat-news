@@ -12,17 +12,55 @@ Page({
       {cat: 'other', name: '其他'},
     ],    
     currentCat: "gn",
+    newsList: {},
   },
   //事件处理函数
   onLoad: function () {
-  //获取新闻...   
+    this.getNews(this.data.currentCat) 
+  },
+  onPullDownRefresh () {
+    this.getNews(this.data.currentCat, wx.stopPullDownRefresh)
+  },
+  //获取新闻
+  getNews: function(cat, callback) {
+    wx.request({
+      url: 'https://test-miniprogram.com/api/news/list',
+      data: {"type": cat},
+      success: res => {
+        let newsList = res.data.result
+        let today = new Date()
+        for ( let i in newsList) {
+          // 若新闻在当天发布，显示小时和分钟，否则显示日期
+          let date = new Date(newsList[i].date)
+          today.setDate(today.getDate())  //当天凌晨
+          if (Number(date - today) >= 0)
+            newsList[i].date = date.getHours() + ':' + date.getMinutes()
+          else
+            newsList[i].date = (date.getMonth() + 1) + '月' + date.getDate() + '日'
+        }
+        callback && callback()
+        this.setData({
+          newsList: newsList,
+          currentCat: cat  //成功后再切换目录，避免目录与新闻不同。
+        })
+        wx.showToast({
+          title: '为您带来了' + newsList.length + '条新闻~',
+          icon: 'none'
+        })
+      },
+      fail: res => {
+        wx.hideLoading() //只有这样，刚进入小程序时，toast才会显示，不知道为什么启动时会自动showLoading
+        wx.showToast({
+          title: '加载失败0.0',
+          icon: 'none',
+          success: callback && callback()
+        })
+      }
+    })
   },
   //切换新闻分类
   changeCat: function(event) {
     let cat = event.target.dataset.cat
-    this.setData({
-      currentCat: cat
-    })
-    //获取新闻...
+    this.getNews(cat);
   },
 })
