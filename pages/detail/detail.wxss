@@ -1,1 +1,56 @@
 /* pages/detail/detail.wxss */
+.header {
+  padding: 35rpx 35rpx 60rpx 35rpx;
+}
+
+.title {
+  font-size: 35rpx;
+  line-height: 49rpx;
+}
+
+.info {
+  margin-top: 10rpx;
+  font-size: 25rpx;
+  line-height: 35rpx;
+  height: 35rpx;
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+}
+
+.source {
+  margin-right: 30rpx;
+}
+
+.readCount {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.content {
+  margin-left: 35rpx;
+  margin-right: 35rpx;
+}
+
+.item {
+  margin-bottom: 40rpx;
+}
+
+.text {
+  font-size: 28rpx;
+  line-height: 39rpx;
+  opacity: 0.8;
+}
+
+.image {
+  height: 480rpx;
+  width: 680rpx;
+  margin: 0 auto;
+}
+
+.strong {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: bold;
+}
+
