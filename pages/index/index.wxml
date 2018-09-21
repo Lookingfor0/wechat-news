@@ -1,9 +1,13 @@
 <!--index.wxml-->
+<view class='topNavbar'>
+  <image class='icon' src='/images/icon.jpg'></image>
+  <text class='topText'>快读·咨询</text>
+</view>
 <view class="navbar">
-  <view wx:for="{{categories}}" bindtap="changeCat" data-cat="{{item.cat}}" class="navbar-item {{currentCat==item.cat?'active':''}}">{{item.name}}</view>
+  <view wx:for="{{categories}}" wx:key="{{item.index}}" bindtap="changeCat" data-cat="{{item.cat}}" class="navbar-item {{currentCat==item.cat?'active':''}}">{{item.name}}</view>
 </view>
 <view class="news-list">
-  <view wx:for="{{newsList}}" wx:key="{{}}" class="news-item" data-id="{{item.id}}" bindtap="detail">
+  <view wx:for="{{newsList}}" wx:key="{{item.id}}" class="news-item" data-id="{{item.id}}" bindtap="detail">
     <view class='news-info'>
       <view class='news-title'>{{item.title}}</view>
       <view class='news-source-date'>

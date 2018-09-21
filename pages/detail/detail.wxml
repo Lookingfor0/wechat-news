@@ -1,4 +1,9 @@
 <!--pages/detail/detail.wxml-->
+<view class='topNavbar'>
+  <!--因为没有图标，暂时用小于号代替-->
+  <navigator open-type='navigateBack' delta='1' class='topBack'><text decode='true'>&lt;</text></navigator>
+  <text class='topText'>快读·咨询</text>
+</view>
 <view class='header'>
   <view class='title'>{{detail.title}}</view>
   <view class='info'>
@@ -8,9 +13,9 @@
   </view>
 </view>
 <view class='content'>
-  <view class='item' wx:for="{{detail.content}}">
-    <text wx:if="{{item.type==='p'}}" class='text'>{{item.text}}</text>
-    <image wx:if="{{item.type==='image'}}" class='image' src='{{item.src}}'></image>
-    <view wx:if="{{item.type==='strong'}}" class="strong">{{item.text}}</view>
-  </view>
+  <block wx:for="{{detail.content}}" wx:key="{{item.id}}">
+    <view wx:if="{{item.type==='p'}}" class='text item'>{{item.text}}</view>
+    <image wx:if="{{item.type==='image'}}" class='image item' src='{{item.src}}'></image>
+    <view wx:if="{{item.type==='strong'}}" class="strong item">{{item.text}}</view>
+  </block>
 </view>

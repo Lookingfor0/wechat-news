@@ -23,48 +23,50 @@ Page({
   },
   // 获取新闻
   getNews: function(cat, callback) {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.request({
       url: 'https://test-miniprogram.com/api/news/list',
       data: {"type": cat},
       success: res => {
         let newsList = res.data.result
-        let today = new Date()
         for ( let i in newsList) {
-          // 若新闻在当天发布，显示小时和分钟，否则显示日期
-          let date = new Date(newsList[i].date)
-          today.setDate(today.getDate())  // 当天凌晨
-          if (Number(date - today) >= 0)
-            newsList[i].date = date.getHours() + ':' + date.getMinutes()
-          else
-            newsList[i].date = (date.getMonth() + 1) + '月' + date.getDate() + '日'
+          let dateStr = newsList[i].date
+          let app = getApp()
+          newsList[i].date = app.resolveTimeStr(dateStr)
           // 如果没有图片，使用默认图片代替
           if (!newsList[i].firstImage)
             newsList[i].firstImage = "/images/default.jpg"
         }
-        callback && callback()
         this.setData({
           newsList: newsList,
           currentCat: cat  // 成功后再切换目录，避免目录与新闻不同。
         })
+        wx.hideLoading()  // complete中的hideLoading会在success和fail后调用，会报错：showLoading必须与hideLoading配对使用,所以放这里        
         wx.showToast({
           title: '为您带来了' + newsList.length + '条新闻~',
           icon: 'none'
         })
       },
       fail: res => {
-        wx.hideLoading() // 只有这样，刚进入小程序时，toast才会显示，不知道为什么启动时会自动showLoading
+        wx.hideLoading()
         wx.showToast({
           title: '加载失败0.0',
           icon: 'none',
-          success: callback && callback()
         })
+      },
+      complete: res => {
+        typeof callback === 'function' && callback()
       }
     })
   },
   // 切换新闻分类
   changeCat: function(event) {
     let cat = event.target.dataset.cat
-    this.getNews(cat);
+    if (cat !== this.data.currentCat){
+      this.getNews(cat);
+    }
   },
   // 跳转到详情页面
   detail(event) {

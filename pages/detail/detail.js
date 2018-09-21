@@ -22,13 +22,9 @@ Page({
       success: res => {
         let detail = res.data.result
         // 处理时间（日期还是小时分钟）
-        let today = new Date()
-        today.setDate(today.getDate())
-        let date = new Date(detail.date)
-        if (Number(date - today) < 0)
-          detail.date = date.getMonth() + "月" + date.getDate() + "日"
-        else 
-          detail.date = date.getHours() + ":" + date.getMinutes()
+        let dateStr = detail.date
+        let app = getApp()
+        detail.date = app.resolveTimeStr(dateStr)
         this.setData({
           detail: detail
         })
